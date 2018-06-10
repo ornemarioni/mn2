@@ -3,7 +3,8 @@ import fuerza as fz
 
 def euler(eps,dt,nit,m,pos,vel,acel):
     
-    path = '/home/omarioni/metodos_numericos/_data/P2C/euler/'
+    #path = '/home/omarioni/mn2/_data/P2C/euler/'
+    path = '/home/omarioni/mn2/_data/NC/euler/'
     
     for i in np.arange(nit):
         
@@ -23,8 +24,9 @@ def euler(eps,dt,nit,m,pos,vel,acel):
 
 def rungek(eps,dt,nit,m,pos,vel,acel):
     #path = '/home/users/valeria/metodos_numericos/_data/runge/'
-    path = '/home/omarioni/metodos_numericos/_data/P2C/runge/'
-       
+    #path = '/home/omarioni/mn2/_data/P2C/runge/'
+    path = '/home/omarioni/mn2/_data/NC/runge/'
+    
     for i in np.arange(nit):
 
         k1 = acel
@@ -57,7 +59,8 @@ def DKD(eps,dt,nit,m,pos,vel,acel):
 
     #path = '/home/users/valeria/metodos_numericos/_data/DKD/'
     #path = '/home/ornela/metodos_numericos/_data/DKD/'
-    path = '/home/omarioni/metodos_numericos/_data/P2C/DKD/'
+    #path = '/home/omarioni/mn2/_data/P2C/DKD/'
+    path = '/home/omarioni/mn2/_data/NC/DKD/'
     
     for i in np.arange(nit):
         pos  = pos + vel*dt*0.5
@@ -80,8 +83,9 @@ def KDK(eps,dt,nit,m,pos,vel,acel):
     
     #path = '/home/users/valeria/metodos_numericos/_data/KDK/'
     #path = '/home/ornela/metodos_numericos/_data/KDK/'
-    path = '/home/omarioni/metodos_numericos/_data/P2C/KDK/'
-        
+    #path = '/home/omarioni/mn2/_data/P2C/KDK/'
+    path = '/home/omarioni/mn2/_data/NC/KDK/'
+    
     for i in np.arange(nit):
         vel  = vel + acel*dt*0.5
         pos  = pos + vel*dt

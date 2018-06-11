@@ -35,9 +35,9 @@ MODULE integradores_modificado
 
     DO i = 1, n
         DO j = 1, n
-            dx = (x(i)-x(j))
-            dy = (y(i)-y(j))
-            dz = (z(i)-z(j))
+            dx = (x(j)-x(i))
+            dy = (y(j)-y(i))
+            dz = (z(j)-z(i))
 
             dist = sqrt(dx**2 + dy**2 + dz**2 + eps**2)
 
@@ -50,7 +50,6 @@ MODULE integradores_modificado
 
                 acz = -G * m(j) * dz / dist**3
                 az(i) = acz + az(i)
-
 
             END IF
         END DO
@@ -81,9 +80,11 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: vx(n), vy(n), vz(n)
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
-    OPEN(70,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_euler.dat',status='unknown')
-    OPEN(80,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_euler.dat',status='unknown')
+    OPEN(70,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_euler.dat',status='unknown')
+    OPEN(80,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_euler.dat',status='unknown')
     
+    WRITE(70,*) x,y,z
+    WRITE(80,*) vx,vy,vz
 
 !$OMP PARALLEL DEFAULT(NONE) &
 !$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n) &
@@ -137,8 +138,8 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(90,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_runge.dat',status='unknown')
-    OPEN(95,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_runge.dat',status='unknown')
+    OPEN(90,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_runge.dat',status='unknown')
+    OPEN(95,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_runge.dat',status='unknown')
     
 
 !$OMP PARALLEL DEFAULT(NONE) &
@@ -223,8 +224,8 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(60,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_KDK.dat',status='unknown')
-    OPEN(65,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_KDK.dat',status='unknown')
+    OPEN(60,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_KDK.dat',status='unknown')
+    OPEN(65,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_KDK.dat',status='unknown')
     
 
 !$OMP PARALLEL DEFAULT(NONE) &
@@ -285,8 +286,8 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(50,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_DKD.dat',status='unknown')
-    OPEN(55,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_DKD.dat',status='unknown')
+    OPEN(50,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_DKD.dat',status='unknown')
+    OPEN(55,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_DKD.dat',status='unknown')
     
 
 !$OMP PARALLEL DEFAULT(NONE) &

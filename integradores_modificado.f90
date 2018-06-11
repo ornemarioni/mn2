@@ -25,36 +25,34 @@ MODULE integradores_modificado
         az(i) = 0.
     END DO
       
-      
-
 !$OMP PARALLEL DEFAULT(NONE) &
-!$OMP SHARED (n,x,y,z,eps,m,ax,ay,az,i) &
-!$OMP PRIVATE(j,dx,dy,dz,dist,acx,acy,acz)
+!$OMP SHARED (n,x,y,z,eps,m,ax,ay,az) &
+!$OMP PRIVATE(i,j,dx,dy,dz,dist,acx,acy,acz)
 !$OMP DO SCHEDULE(DYNAMIC)
 
-
     DO i = 1, n
+    
         DO j = 1, n
-            dx = (x(j)-x(i))
-            dy = (y(j)-y(i))
-            dz = (z(j)-z(i))
+            dx = x(j)-x(i)
+            dy = y(j)-y(i)
+            dz = z(j)-z(i)
 
             dist = sqrt(dx**2 + dy**2 + dz**2 + eps**2)
 
             IF (i /= j) THEN     
-                acx = -G * m(j) * dx / dist**3
+                acx = G * m(j) * dx / dist**3
                 ax(i) = acx + ax(i)
 
-                acy = -G * m(j) * dy / dist**3
+                acy = G * m(j) * dy / dist**3
                 ay(i) = acy + ay(i)
 
-                acz = -G * m(j) * dz / dist**3
+                acz = G * m(j) * dz / dist**3
                 az(i) = acz + az(i)
 
             END IF
         END DO
     END DO
-    
+
 !$OMP END DO
 !$OMP END PARALLEL
 
@@ -80,19 +78,19 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: vx(n), vy(n), vz(n)
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
-    OPEN(70,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_euler.dat',status='unknown')
-    OPEN(80,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_euler.dat',status='unknown')
+    OPEN(70,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_euler.dat',status='unknown')
+    OPEN(80,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_euler.dat',status='unknown')
     
     WRITE(70,*) x,y,z
-    WRITE(80,*) vx,vy,vz
-
-!$OMP PARALLEL DEFAULT(NONE) &
-!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n) &
-!$OMP PRIVATE(j,i)
-!$OMP DO SCHEDULE(DYNAMIC)
-    
+    WRITE(80,*) vx,vy,vz  
    
     DO j = 1,nit
+
+!$OMP PARALLEL DEFAULT(NONE) &
+!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n,j) &
+!$OMP PRIVATE(i)
+!$OMP DO SCHEDULE(DYNAMIC)
+
         DO i = 1,n
             vx(i) = vx(i) + ax(i)*dt
             vy(i) = vy(i) + ay(i)*dt
@@ -103,17 +101,18 @@ MODULE integradores_modificado
             z(i) = z(i) + vz(i)*dt
         END DO
         
+!$OMP END DO
+!$OMP END PARALLEL 
+
         CALL aceleracion(eps,m,x,y,z,n,ax,ay,az)
         
         IF (MOD(j,10)==0) THEN
             WRITE(70,*) x,y,z
             WRITE(80,*) vx,vy,vz
         END IF
-        
+       
     END DO
-    
-!$OMP END DO
-!$OMP END PARALLEL 
+
 
     CLOSE(70)
     CLOSE(80)
@@ -138,16 +137,18 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(90,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_runge.dat',status='unknown')
-    OPEN(95,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_runge.dat',status='unknown')
-    
+    OPEN(90,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_runge.dat',status='unknown')
+    OPEN(95,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_runge.dat',status='unknown') 
+
+    WRITE(90,*) x,y,z
+    WRITE(95,*) vx,vy,vz
+            
+    DO j = 1,nit
 
 !$OMP PARALLEL DEFAULT(NONE) &
-!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n) &
-!$OMP PRIVATE(j,i,k1,k2,k3,k4)
+!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n,j) &
+!$OMP PRIVATE(i,k1,k2,k3,k4)
 !$OMP DO SCHEDULE(DYNAMIC)
-
-    DO j = 1,nit
 
         DO i = 1,n
         
@@ -190,6 +191,9 @@ MODULE integradores_modificado
   
         END DO
         
+!$OMP END DO
+!$OMP END PARALLEL         
+
         CALL aceleracion(eps,m,x,y,z,n,ax,ay,az)
         
         IF (MOD(j,10)==0) THEN
@@ -199,9 +203,6 @@ MODULE integradores_modificado
         
     END DO
     
-!$OMP END DO
-!$OMP END PARALLEL 
-
     CLOSE(90)
     CLOSE(95)
     
@@ -224,16 +225,19 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(60,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_KDK.dat',status='unknown')
-    OPEN(65,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_KDK.dat',status='unknown')
+    OPEN(60,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_KDK.dat',status='unknown')
+    OPEN(65,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_KDK.dat',status='unknown')
+
+    WRITE(60,*) x,y,z
+    WRITE(65,*) vx,vy,vz
     
+    DO j = 1,nit
 
 !$OMP PARALLEL DEFAULT(NONE) &
-!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n) &
-!$OMP PRIVATE(j,i)
-!$OMP DO SCHEDULE(DYNAMIC)
+!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n,j) &
+!$OMP PRIVATE(i)
+!$OMP DO SCHEDULE(DYNAMIC)    
 
-    DO j = 1,nit
         DO i = 1,n
         
             vx(i) = vx(i) + ax(i) * dt*0.5
@@ -244,16 +248,27 @@ MODULE integradores_modificado
             y(i) = y(i) + vy(i) * dt
             z(i) = z(i) + vz(i) * dt
         END DO
-            
+
+!$OMP END DO
+!$OMP END PARALLEL             
+
         CALL aceleracion(eps,m,x,y,z,n,ax,ay,az)
-        
+
+!$OMP PARALLEL DEFAULT(NONE) &
+!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n,j) &
+!$OMP PRIVATE(i)
+!$OMP DO SCHEDULE(DYNAMIC)          
+
         DO i = 1,n
             vx(i) = vx(i) + ax(i) * dt*0.5
             vy(i) = vy(i) + ay(i) * dt*0.5
             vz(i) = vz(i) + az(i) * dt*0.5    
             
         END DO
-        
+
+!$OMP END DO
+!$OMP END PARALLEL         
+
         IF (MOD(j,10)==0) THEN
             WRITE(60,*) x,y,z
             WRITE(65,*) vx,vy,vz
@@ -261,8 +276,7 @@ MODULE integradores_modificado
         
     END DO
     
-!$OMP END DO
-!$OMP END PARALLEL 
+
 
     CLOSE(60)
     CLOSE(65)
@@ -286,16 +300,19 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(50,file='/home/omarioni/mn2/_data/P2C/fortran_run/pos_DKD.dat',status='unknown')
-    OPEN(55,file='/home/omarioni/mn2/_data/P2C/fortran_run/vel_DKD.dat',status='unknown')
-    
+    OPEN(50,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_DKD.dat',status='unknown')
+    OPEN(55,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_DKD.dat',status='unknown')
 
+    WRITE(50,*) x,y,z
+    WRITE(55,*) vx,vy,vz
+    
+    DO j = 1,nit
+    
 !$OMP PARALLEL DEFAULT(NONE) &
-!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n) &
-!$OMP PRIVATE(j,i)
+!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n,j) &
+!$OMP PRIVATE(i)
 !$OMP DO SCHEDULE(DYNAMIC)
 
-    DO j = 1,nit
         DO i = 1,n
         
             x(i) = x(i) + vx(i) * dt*0.5
@@ -303,8 +320,16 @@ MODULE integradores_modificado
             z(i) = z(i) + vz(i) * dt*0.5
             
         END DO
+
+!$OMP END DO
+!$OMP END PARALLEL 
             
         CALL aceleracion(eps,m,x,y,z,n,ax,ay,az)
+
+!$OMP PARALLEL DEFAULT(NONE) &
+!$OMP SHARED (eps,dt,nit,m,x,y,z,vx,vy,vz,ax,ay,az,n,j) &
+!$OMP PRIVATE(i)
+!$OMP DO SCHEDULE(DYNAMIC)
         
         DO i = 1,n
             vx(i) = vx(i) + ax(i)*dt
@@ -316,7 +341,10 @@ MODULE integradores_modificado
             z(i) = z(i) + vz(i) * dt*0.5         
             
         END DO
-        
+
+!$OMP END DO
+!$OMP END PARALLEL         
+
         IF (MOD(j,10)==0) THEN
             WRITE(50,*) x,y,z
             WRITE(55,*) vx,vy,vz
@@ -324,8 +352,6 @@ MODULE integradores_modificado
         
     END DO
     
-!$OMP END DO
-!$OMP END PARALLEL 
 
     CLOSE(50)
     CLOSE(55)

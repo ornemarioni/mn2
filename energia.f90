@@ -25,15 +25,15 @@ MODULE energia
     END DO
     
 !$OMP PARALLEL DEFAULT(NONE) &
-!$OMP SHARED (n,x,y,z,eps,m,i,ep) &
-!$OMP PRIVATE(j,dx,dy,dz,dist,aux)
+!$OMP SHARED (n,x,y,z,eps,m,ep) &
+!$OMP PRIVATE(i,j,dx,dy,dz,dist,aux)
 !$OMP DO SCHEDULE(DYNAMIC)
     
     DO i = 1, n
         DO j = 1, n
-            dx = x(i)-x(j)
-            dy = y(i)-y(j)
-            dz = z(i)-z(j)
+            dx = x(j)-x(i)
+            dy = y(j)-y(i)
+            dz = z(j)-z(i)
             dist = sqrt(dx**2 + dy**2 + dz**2 + eps**2)
             
             IF (i /= j) THEN     

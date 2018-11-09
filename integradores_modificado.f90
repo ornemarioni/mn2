@@ -78,8 +78,8 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: vx(n), vy(n), vz(n)
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
-    OPEN(70,file='/home/omarioni/mn2/_data/cap3/pos_0.dat',status='unknown')
-    OPEN(80,file='/home/omarioni/mn2/_data/cap3/vel_0.dat',status='unknown')
+    OPEN(70,file='/home/omarioni/mn2/_data/P2C/euler/pos_euler.dat',status='unknown')
+    OPEN(80,file='/home/omarioni/mn2/_data/P2C/euler/vel_euler.dat',status='unknown')
     
     WRITE(70,*) x,y,z
     WRITE(80,*) vx,vy,vz  

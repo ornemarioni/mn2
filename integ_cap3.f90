@@ -82,8 +82,11 @@ MODULE integradores
 !f2py INTENT(IN,OUT) :: vx(n), vy(n), vz(n)
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
-    OPEN(70,file='/home/omarioni/mn2/_data/cap3/pos_0.dat',status='unknown')
-    OPEN(80,file='/home/omarioni/mn2/_data/cap3/vel_0.dat',status='unknown')
+!!!    OPEN(70,file='/home/omarioni/mn2/_data/cap3/pos_0.dat',status='unknown')
+!!!    OPEN(80,file='/home/omarioni/mn2/_data/cap3/vel_0.dat',status='unknown')
+    
+    OPEN(70,file='/home/omarioni/pos.dat',status='unknown')
+    OPEN(80,file='/home/omarioni/vel.dat',status='unknown')
     
     WRITE(70,*) x,y,z
     WRITE(80,*) vx,vy,vz  
@@ -96,27 +99,25 @@ MODULE integradores
 !$OMP DO SCHEDULE(DYNAMIC)
 
         DO i = 1,n
-            vx(i) = vx(i) + ax(i)*dt
-            vy(i) = vy(i) + ay(i)*dt
-            vz(i) = vz(i) + az(i)*dt
+            vx(i) = vx(i) + ax(i)*dt*3.15e7
+            vy(i) = vy(i) + ay(i)*dt*3.15e7
+            vz(i) = vz(i) + az(i)*dt*3.15e7
             
-            x(i) = x(i) + vx(i)*dt
-            y(i) = y(i) + vy(i)*dt
-            z(i) = z(i) + vz(i)*dt
+            x(i) = x(i) + vx(i)*dt*3.15e7
+            y(i) = y(i) + vy(i)*dt*3.15e7
+            z(i) = z(i) + vz(i)*dt*3.15e7
         END DO
         
 !$OMP END DO
 !$OMP END PARALLEL 
 
         CALL aceleracion(eps,m,x,y,z,n,ax,ay,az)
-        
-        IF (MOD(j,10)==0) THEN
-            WRITE(70,*) x,y,z
-            WRITE(80,*) vx,vy,vz
-        END IF
-       
+      
     END DO
 
+     
+    WRITE(70,*) x,y,z
+    WRITE(80,*) vx,vy,vz
 
     CLOSE(70)
     CLOSE(80)

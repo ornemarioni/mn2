@@ -82,14 +82,6 @@ MODULE integradores
 !f2py INTENT(IN,OUT) :: vx(n), vy(n), vz(n)
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
-!!!    OPEN(70,file='/home/omarioni/mn2/_data/cap3/pos_0.dat',status='unknown')
-!!!    OPEN(80,file='/home/omarioni/mn2/_data/cap3/vel_0.dat',status='unknown')
-    
-    OPEN(70,file='/home/omarioni/pos.dat',status='unknown')
-    OPEN(80,file='/home/omarioni/vel.dat',status='unknown')
-    
-    WRITE(70,*) x,y,z
-    WRITE(80,*) vx,vy,vz  
    
     DO j = 1,nit
 
@@ -114,13 +106,6 @@ MODULE integradores
         CALL aceleracion(eps,m,x,y,z,n,ax,ay,az)
       
     END DO
-
-     
-    WRITE(70,*) x,y,z
-    WRITE(80,*) vx,vy,vz
-
-    CLOSE(70)
-    CLOSE(80)
 
     END SUBROUTINE
 

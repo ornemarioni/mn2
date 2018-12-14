@@ -19,7 +19,7 @@ vp = nn * a * np.sqrt((1+e)/(1-e)) #velocidad en el pericentro
 apo = a*(1+e)
 b = a * np.sqrt(1-e**2)
 
-T = 2*pi/nn #periodo
+T = 2*np.pi/nn #periodo
 
 
 #posiciones y velocidades iniciales
@@ -35,7 +35,7 @@ ax,ay,az = integradores.aceleracion(eps,m,pos[:,0],pos[:,1],pos[:,2])
 tiempo = 100.
 dt = [10**-6.5, 1e-6, 10**-5.5, 1e-5, 10**-4.5, 1e-4, 1e-3, 10**-2.5, 1e-2]  #pasos
 
-archivo = open('/home/omarioni/,'a')
+archivo = open('/home/omarioni/mn2/_data/cap3/salida.dat','a')
 
 for i in range(0,len(dt)):
     

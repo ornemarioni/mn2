@@ -32,9 +32,9 @@ ax,ay,az = integradores.aceleracion(eps,m,pos[:,0],pos[:,1],pos[:,2])
 
 
 #Aca definimos el paso y el nro de pasos
-tiempo = 100.
-dt = [10**-6.5, 1e-6, 10**-5.5, 1e-5, 10**-4.5, 1e-4, 1e-3, 10**-2.5, 1e-2]  #pasos
-
+tiempo = 10.
+#dt = [10**-6.5, 1e-6, 10**-5.5, 1e-5, 10**-4.5, 1e-4, 1e-3, 10**-2.5, 1e-2]  #pasos
+dt = 1e-2
 archivo = open('/home/omarioni/mn2/_data/cap3/salida.dat','a')
 
 for i in range(0,len(dt)):
@@ -42,13 +42,13 @@ for i in range(0,len(dt)):
     nit = np.int_(tiempo/dt[i]) #numero de pasos
     x,y,z,vx,vy,vz,ax,ay,az = integradores.euler(eps,dt[i],nit,m,pos[:,0],pos[:,1],pos[:,2],vel[:,0],vel[:,1],vel[:,2],ax,ay,az)
 
-    archivo.write(str('%12.6f'%x) + '\t'+
-                  str('%12.6f'%y) + '\t'+
-                  str('%12.6f'%z) + '\t'+
+    archivo.write(str('%12.6f'%x)  + '\t'+
+                  str('%12.6f'%y)  + '\t'+
+                  str('%12.6f'%z)  + '\t'+
                   str('%12.6f'%vx) + '\t'+
                   str('%12.6f'%vy) + '\t'+
                   str('%12.6f'%vz) + '\t'+
                   str('%12.6f'%ax) + '\t'+
                   str('%12.6f'%ay) + '\t'+
-                  str('%12.6f'%az) + '\n' )
+                  str('%12.6f'%az) + '\n')
     archivo.close()

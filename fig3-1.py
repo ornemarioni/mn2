@@ -1,5 +1,5 @@
 import numpy as np
-from ipdc2 import *
+from ipdc import *
 
 G = 6.674e-11  # Unidades N*m^2/kg^2
 eps = 0.05      #softening 

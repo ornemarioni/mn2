@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "fig3-1.py", line 22, in <module>
-srun: error: clemente01: task 0: Exited with exit code 1
-    T = 2*pi/nn #periodo
-NameError: name 'pi' is not defined

@@ -65,13 +65,9 @@ MODULE integradores
     !euler(n,h,nit,m,eps,x,y,z,vx,vy,vz,ax,ay,az)
     
     USE OMP_LIB
-    
-    INTEGER, PARAMETER                :: dp_int = selected_int_kind(20)
-    INTEGER(KIND=dp_int), INTENT (IN) :: nit
-    INTEGER(KIND=dp_int)              :: j
-    
-    INTEGER              :: i
-    INTEGER, INTENT (IN) :: n 
+      
+    INTEGER              :: i,j
+    INTEGER, INTENT (IN) :: n, nit
     REAL, INTENT (IN)    :: dt, eps, m(n)
     REAL, INTENT (INOUT) :: x(n), y(n), z(n)
     REAL, INTENT (INOUT) :: vx(n), vy(n), vz(n)

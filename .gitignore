@@ -104,3 +104,4 @@ aceleracion.so
 *.o
 _data/
 IP133/
+slurm*

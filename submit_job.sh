@@ -18,7 +18,7 @@
 #SBATCH --cpus-per-task=56
 
 ### Tiempo de ejecucion. Formato dias-horas:minutos.
-#SBATCH --time 3-00:00
+#SBATCH --time 1-00:00
 
 ### Script que se ejecuta al arrancar el trabajo
 

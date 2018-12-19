@@ -37,20 +37,20 @@ dt = [1e-2, 10**-2.5, 1e-3, 1e-4, 10**-4.5, 1e-5, 10**-5.5, 1e-6, 10**-6.5]  #pa
 
 archivo = open('/home/omarioni/mn2/_data/cap3/salida_new.dat','a')
     
-nit = np.int_(tiempo/dt) #numero de pasos
-x,y,z,vx,vy,vz,ax,ay,az = integradores.euler(eps,dt,nit,m,pos[:,0],pos[:,1],pos[:,2],vel[:,0],vel[:,1],vel[:,2],ax,ay,az)
+for i in range(len(dt)):
+	nit = np.int_(tiempo/dt[i]) #numero de pasos
+	x,y,z,vx,vy,vz,ax,ay,az = integradores.euler(eps,dt[i],nit,m,pos[:,0],pos[:,1],pos[:,2],vel[:,0],vel[:,1],vel[:,2],ax,ay,az)
     
-archivo.write(str('%12.6f'%x[0])  + '\t'+
-              str('%12.6f'%y[0])  + '\t'+
-              str('%12.6f'%z[0])  + '\t'+
-              str('%12.6f'%vx[0]) + '\t'+
-              str('%12.6f'%vy[0]) + '\t'+
-              str('%12.6f'%vz[0]) + '\n'+
-              str('%12.6f'%x[1])  + '\t'+
-              str('%12.6f'%y[1])  + '\t'+
-              str('%12.6f'%z[1])  + '\t'+
-              str('%12.6f'%vx[1]) + '\t'+
-              str('%12.6f'%vy[1]) + '\t'+
-              str('%12.6f'%vz[1]) + '\n')
-
+	archivo.write(str('%12.6f'%x[0])  + '\t'+
+        	      str('%12.6f'%y[0])  + '\t'+
+              	      str('%12.6f'%z[0])  + '\t'+
+             	      str('%12.6f'%vx[0]) + '\t'+
+             	      str('%12.6f'%vy[0]) + '\t'+
+             	      str('%12.6f'%vz[0]) + '\n'+
+             	      str('%12.6f'%x[1])  + '\t'+
+             	      str('%12.6f'%y[1])  + '\t'+
+             	      str('%12.6f'%z[1])  + '\t'+
+             	      str('%12.6f'%vx[1]) + '\t'+
+             	      str('%12.6f'%vy[1]) + '\t'+
+             	      str('%12.6f'%vz[1]) + '\n')
 archivo.close()

@@ -78,8 +78,10 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: vx(n), vy(n), vz(n)
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
-    OPEN(70,file='/home/omarioni/mn2/_data/P2C/euler/pos_euler.dat',status='unknown')
-    OPEN(80,file='/home/omarioni/mn2/_data/P2C/euler/vel_euler.dat',status='unknown')
+!!    OPEN(70,file='/home/omarioni/mn2/_data/P2C/euler/pos_euler.dat',status='unknown')
+!!    OPEN(80,file='/home/omarioni/mn2/_data/P2C/euler/vel_euler.dat',status='unknown')
+    OPEN(70,file='/home/omarioni/mn2/_data/NC_vel_random/pos_euler.dat',status='unknown')
+    OPEN(80,file='/home/omarioni/mn2/_data/NC_vel_random/vel_euler.dat',status='unknown')
     
     WRITE(70,*) x,y,z
     WRITE(80,*) vx,vy,vz  
@@ -137,8 +139,12 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(90,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_runge.dat',status='unknown')
-    OPEN(95,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_runge.dat',status='unknown') 
+!!    OPEN(90,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_runge.dat',status='unknown')
+!!    OPEN(95,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_runge.dat',status='unknown') 
+    
+    OPEN(90,file='/home/omarioni/mn2/_data/NC_vel_random/pos_runge.dat',status='unknown')
+    OPEN(95,file='/home/omarioni/mn2/_data/NC_vel_random/vel_runge.dat',status='unknown') 
+
 
     WRITE(90,*) x,y,z
     WRITE(95,*) vx,vy,vz
@@ -225,8 +231,11 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(60,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_KDK.dat',status='unknown')
-    OPEN(65,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_KDK.dat',status='unknown')
+!!    OPEN(60,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_KDK.dat',status='unknown')
+!!    OPEN(65,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_KDK.dat',status='unknown')
+    
+    OPEN(60,file='/home/omarioni/mn2/_data/NC_vel_random/pos_KDK.dat',status='unknown')
+    OPEN(65,file='/home/omarioni/mn2/_data/NC_vel_random/vel_KDK.dat',status='unknown')
 
     WRITE(60,*) x,y,z
     WRITE(65,*) vx,vy,vz
@@ -300,8 +309,11 @@ MODULE integradores_modificado
 !f2py INTENT(IN,OUT) :: ax(n), ay(n), az(n)
 
 
-    OPEN(50,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_DKD.dat',status='unknown')
-    OPEN(55,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_DKD.dat',status='unknown')
+!!    OPEN(50,file='/home/omarioni/mn2/_data/NC/fortran_run/pos_DKD.dat',status='unknown')
+!!    OPEN(55,file='/home/omarioni/mn2/_data/NC/fortran_run/vel_DKD.dat',status='unknown')
+
+    OPEN(50,file='/home/omarioni/mn2/_data/NC_vel_random/pos_DKD.dat',status='unknown')
+    OPEN(55,file='/home/omarioni/mn2/_data/NC_vel_random/vel_DKD.dat',status='unknown')
 
     WRITE(50,*) x,y,z
     WRITE(55,*) vx,vy,vz
